@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html ng-app="myNgApp">
+	<head>
+		<% include ../partials/head %>
+	</head>
+	<body class="container">
+		<header>
+			<% include ../partials/header %>
+		</header>
+		<body>
+			<h1 class="dropFileLabel">Drop File</h1>
+			<!-- Dropzone -->
+			<div ng-controller="drop1Controller">
+				<div id="dropzone1" class="dropzone" options="dzOptions" callbacks="dzCallbacks" ng-dropzone></div>
+			</div>		
+			<br/><br/>		
+		 <footer>
+            <% include ../partials/footer %>
+			<script>
+				Dropzone.autoDiscover = false;
+				var myNgApp = angular.module('myNgApp', ['thatisuday.dropzone']);				
+				myNgApp.config(function(dropzoneOpsProvider){
+					dropzoneOpsProvider.setOptions({
+						url : '/file-upload',
+						acceptedFiles : '.jpeg, .jpg, .png, .pdf, .doc, .docx, .txt',
+						addRemoveLinks : true,
+						dictDefaultMessage : 'Click to add or drop files',
+						dictRemoveFile : 'Remove file',
+						dictResponseError : 'Could not upload this file',
+						removedfile: function(file) {							
+							var id = file.xhr.response;        
+							$.ajax({
+								type: 'POST',
+								url: '/delete-file',
+								data: {"id":id},
+								dataType: 'json'
+							}).done(function(data) {
+								if(data.success == true){
+									// do action
+								}
+								var _ref;
+								return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+							});							        
+						}
+					});
+				});
+				
+				// Dropzone 1
+				myNgApp.controller('drop1Controller', function($scope, $timeout){
+					$scope.dzOptions = {
+						paramName : 'uploadFile',
+						maxFilesize : '10'
+					};
+				});				
+				</script>
+        </footer>
+	</body>
+</html>

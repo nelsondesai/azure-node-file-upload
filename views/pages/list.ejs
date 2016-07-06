@@ -1,0 +1,60 @@
+<!-- views/pages/about.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include ../partials/head %>
+    </head> 
+    <body class="container">
+    <header>
+        <% include ../partials/header %>
+    </header>
+    <main>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="jumbotron">
+                    <h1>This is a list</h1>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="well" ng-controller="MainCntl as main">
+                    <h3>List of item in Azure Blob!</h3>
+                    <div class="imageLists">			
+                        <div ng-show="true" class="isLoading">
+                          <i class="fa fa-spinner fa-spin fa-3x"></i>
+                        </div>	
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <% include ../partials/footer %>
+        <script>
+        $(document).ready(function()
+        {
+            var data ='';
+            $.ajax({
+                url: '/getBlobs',
+                type:'POST',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                }).done(function(data) {
+                    if(data.length > 0 )	
+                    {
+                        var ulStrStart = '<ul>';
+                        var ulStrEnd = '</ul>';
+                        var dataStr = ulStrStart;
+                        $.each(data, function( index, value ) {					
+                            dataStr += '<li><a href="'+value.Uri+'" target="_blank">'+value.name+'</a></li>';					
+                        });
+                        dataStr += ulStrEnd;
+                        $('.isLoading').addClass('ng-hide');
+                        $('.imageLists').append(dataStr);
+                    }		   
+                });      
+        });
+        </script>
+    </footer>
+</body>
+</html>

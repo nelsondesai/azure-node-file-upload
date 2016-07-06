@@ -1,0 +1,23 @@
+{
+  "name": "azure-node-file-upload",
+  "version": "0.0.1",
+  "description": "azure,blob,nodejs,express,fileupload",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "cool"
+  ],
+  "author": "nelsondesai",
+  "license": "MIT",
+  "dependencies": {
+    "azure-storage": "^0.4.3",
+    "body-parser": "^1.15.2",
+    "connect-multiparty": "^1.2.5",
+    "ejs": "^1.0.0",
+    "express": "^4.6.1",
+    "fs": "0.0.2",
+    "multiparty": "^4.1.1"
+  }
+}
