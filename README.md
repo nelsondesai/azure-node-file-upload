@@ -8,4 +8,4 @@ If you want that it work, you must configure server blob!
 2. Install npm, node if needed
 3. Install node modules ~$npm install
 4. Configure azure container name and key in config.json
-5. strat server with ~$node server.js
+5. Strat server with ~$node server.js
